@@ -1,4 +1,6 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const googleIcon = (
   <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline-block align-middle mr-2">
@@ -18,16 +20,18 @@ const githubIcon = (
 );
 
 export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePassword = () => setShowPassword((prev) => !prev);
   return (
-    <div className="min-h-screen flex items-center justify-center bg-neutral-100">
+    <div className="min-h-screen mt-10 mb-10 flex items-center justify-center bg-neutral-100">
       <div className="w-full max-w-md p-8 rounded-2xl shadow-2xl border border-neutral-200" style={{ background: 'linear-gradient(135deg, #f7f7f9 60%, #ece9f6 100%)', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.10)' }}>
         <h2 className="text-3xl font-extrabold text-neutral-800 mb-7 text-center tracking-tight">Welcome Back</h2>
 
         <div className="flex flex-col gap-3 mb-7">
-          <button type="button" className="w-full flex items-center justify-center bg-white/80 hover:bg-white border border-neutral-200 text-neutral-700 font-semibold py-2.5 rounded-xl shadow-sm transition focus:outline-none focus:ring-2 focus:ring-violet-300">
+          <button type="button" className="w-full flex items-center justify-center bg-white/80 hover:bg-white border border-neutral-200 text-neutral-700 font-semibold py-2.5 rounded-xl shadow-sm transition focus:outline-none focus:ring-2 focus:ring-violet-300 cursor-pointer">
             {googleIcon}Continue with Google
           </button>
-          <button type="button" className="w-full flex items-center justify-center bg-white/80 hover:bg-white border border-neutral-200 text-neutral-700 font-semibold py-2.5 rounded-xl shadow-sm transition focus:outline-none focus:ring-2 focus:ring-violet-300">
+          <button type="button" className="w-full flex items-center justify-center bg-white/80 hover:bg-white border border-neutral-200 text-neutral-700 font-semibold py-2.5 rounded-xl shadow-sm transition focus:outline-none focus:ring-2 focus:ring-violet-300 cursor-pointer">
             {githubIcon}Continue with GitHub
           </button>
         </div>
@@ -45,14 +49,30 @@ export default function LoginPage() {
           </div>
           <div>
             <label className="block text-neutral-700 font-semibold mb-2">Password</label>
-            <input type="password" className="w-full px-4 py-2 bg-neutral-50 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-400 transition" placeholder="••••••••" required />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="w-full px-4 py-2 bg-neutral-50 border border-neutral-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-400 transition pr-10"
+                placeholder="••••••••"
+                required
+              />
+              <button
+                type="button"
+                onClick={togglePassword}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 focus:outline-none cursor-pointer"
+                tabIndex={-1}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+              </button>
+            </div>
           </div>
-          <button type="submit" className="w-full bg-gradient-to-r from-violet-600 to-indigo-500 hover:from-violet-700 hover:to-indigo-600 text-white font-bold py-2.5 rounded-xl shadow-md transition">Sign In</button>
+          <button type="submit" className="w-full bg-gradient-to-r from-violet-600 to-indigo-500 hover:from-violet-700 hover:to-indigo-600 text-white font-bold py-2.5 rounded-xl shadow-md transition cursor-pointer">Sign In</button>
         </form>
 
         <div className="text-center mt-6 text-sm text-neutral-500">
           Don&apos;t have an account?{' '}
-          <a href="/signup" className="text-violet-700 hover:underline font-semibold">Sign Up</a>
+          <a href="/signup" className="text-violet-700 hover:underline font-semibold cursor-pointer">Sign Up</a>
         </div>
       </div>
     </div>
