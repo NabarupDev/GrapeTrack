@@ -23,7 +23,7 @@ export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword((prev) => !prev);
   return (
-    <div className="min-h-screen mt-10 mb-10 flex items-center justify-center bg-neutral-100">
+    <div className="min-h-screen flex items-center justify-center bg-neutral-100">
       <div className="w-full max-w-md p-8 rounded-2xl shadow-2xl border border-neutral-200" style={{ background: 'linear-gradient(135deg, #f7f7f9 60%, #ece9f6 100%)', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.10)' }}>
         <h2 className="text-3xl font-extrabold text-neutral-800 mb-7 text-center tracking-tight">Create Your Account</h2>
 
