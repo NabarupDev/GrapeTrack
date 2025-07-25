@@ -6,9 +6,9 @@ import { Users, UserPlus, Settings, MoreVertical, Search, Filter, Mail, Shield, 
 
 // Dummy data for users and roles
 const initialUsers = [
-  { id: 1, email: 'alice.johnson@company.com', role: 'User', taskLoad: 3, status: 'active', joinedDate: '2024-01-15' },
-  { id: 2, email: 'bob.smith@company.com', role: 'Manager', taskLoad: 5, status: 'active', joinedDate: '2024-02-20' },
-  { id: 3, email: 'carol.davis@company.com', role: 'Admin', taskLoad: 1, status: 'active', joinedDate: '2024-03-10' },
+  { id: 1, name: 'Alice Johnson', email: 'alice.johnson@company.com', role: 'User', taskLoad: 3, status: 'active', joinedDate: '2024-01-15' },
+  { id: 2, name: 'Bob Smith', email: 'bob.smith@company.com', role: 'Manager', taskLoad: 5, status: 'active', joinedDate: '2024-02-20' },
+  { id: 3, name: 'Carol Davis', email: 'carol.davis@company.com', role: 'Admin', taskLoad: 1, status: 'active', joinedDate: '2024-03-10' },
 ];
 
 const roles = ['User', 'Manager', 'Admin'];
@@ -250,13 +250,17 @@ export default function AdminPage() {
                     className="hover:bg-gray-50 transition-colors"
                   >
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
+                      <div className="flex items-center group relative">
                         <div className="h-10 w-10 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full flex items-center justify-center text-white font-medium text-sm">
-                          {user.email.charAt(0).toUpperCase()}
+                          {(user.name ? user.name.charAt(0) : (user.email ? user.email.charAt(0) : '?')).toUpperCase()}
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{user.email}</div>
+                          <div className="text-sm font-medium text-gray-900">{user.name || user.email || 'Unknown'}</div>
                           <div className="text-sm text-gray-500">Joined {user.joinedDate}</div>
+                        </div>
+                        {/* Email on hover */}
+                        <div className="absolute left-16 top-1/2 -translate-y-1/2 bg-white border border-gray-200 rounded shadow px-3 py-1 text-xs text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-30 min-w-max">
+                          {user.email}
                         </div>
                       </div>
                     </td>
@@ -314,12 +318,14 @@ export default function AdminPage() {
                         {user.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button
-                        className="text-gray-400 hover:text-gray-600 transition-colors"
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex items-center">
+                      <a
+                        href={`/admin/details/${user.id}`}
+                        className="inline-block bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-medium border border-indigo-200 transition-colors align-middle"
+                        title="View & Assign Tasks"
                       >
-                        <MoreVertical className="h-4 w-4" />
-                      </button>
+                        Assign/Details
+                      </a>
                     </td>
                   </tr>
                 ))}
